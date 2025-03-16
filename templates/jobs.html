@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Job Recommendations - AI Career Assistant{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='jobs.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <nav>
+        <div class="logo">AI Job Assistant</div>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">Upload Resume</a>
+            <a href="{{ url_for('job_recommendations') }}" class="nav-link active">Job Recommendations</a>
+            <a href="{{ url_for('market') }}" class="nav-link">Market Analysis</a>
+            <a href="{{ url_for('chatbot') }}" class="nav-link">AI Chatbot</a>
+        </div>
+        <div class="auth-buttons">
+            <span>Welcome, {{ name }}!</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <section class="jobs-content">
+        <h1>Job Recommendations</h1>
+        {% if error %}
+        <div class="alert">{{ error }}</div>
+        {% endif %}
+        
+        {% if jobs %}
+        <div class="job-listings">
+            {% for job in jobs %}
+            <div class="job-card">
+                <h2>{{ job['Job Title'] }}</h2>
+                <p class="job-description">{{ job['Job Description'] }}</p>
+                <div class="job-details">
+                    <span class="salary">{{ job['Salary Range'] }}</span>
+                    <span class="job-type">{{ job['Job Type'] }}</span>
+                </div>
+                <form action="{{ url_for('apply_job') }}" method="post">
+                    <input type="hidden" name="job_title" value="{{ job['Job Title'] }}">
+                    <button type="submit" class="apply-btn">Apply Now</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-jobs">
+            {% if error %}
+                {{ error }}
+            {% else %}
+                No job recommendations found. Please upload your resume first.
+            {% endif %}
+        </div>
+        {% endif %}
+    </section>
+</main>
+
+{% block additional_js %}
+<script src="{{ url_for('static', filename='jobs.js') }}"></script>
+{% endblock %}
+
+{% endblock %}

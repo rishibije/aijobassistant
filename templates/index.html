@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - AI Career Assistant{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='login1.css') }}">
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Job Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='jobs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='market.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI Job Assistant</div>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}" class="nav-link active">Upload Resume</a>
+                <a href="{{ url_for('job_recommendations') }}" class="nav-link">Job Recommendations</a>
+                <a href="{{ url_for('market') }}" class="nav-link">Market Analysis</a>
+                <a href="{{ url_for('chatbot') }}" class="nav-link">AI Chatbot</a>
+            </div>
+            <div class="auth-buttons">
+                <span>Welcome, {{ name }}!</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-content">
+            <h1>Upload Your Resume</h1>
+            {% if error %}
+            <div class="alert">{{ error }}</div>
+            {% endif %}
+            <form action="{{ url_for('analyze_resume') }}" method="post" enctype="multipart/form-data">
+                <input type="file" name="resume" accept=".pdf" required>
+                <button type="submit">Analyze Resume</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}
+
+{% block additional_js %}
+<script src="{{ url_for('static', filename='login1.js') }}"></script>
+{% endblock %}

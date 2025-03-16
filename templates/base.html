@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AI Career Assistant{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    {% block additional_css %}{% endblock %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+
+    <!-- Floating Chat Icon -->
+    <div class="chat-icon" id="chatIcon">
+        <i class="fas fa-comments"></i>
+        <span class="notification-badge" style="display: none;">1</span>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chatbot-container" id="chatContainer">
+        <div class="chat-header">
+            <h1><i class="fas fa-robot"></i> AI Career Assistant</h1>
+            <button class="minimize-btn" id="minimizeChat">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <i class="fas fa-robot bot-icon"></i>
+                    <div class="message-text">
+                        Hello! I'm your AI career assistant. I can help you with:
+                        <ul>
+                            <li>Resume analysis and skill assessment</li>
+                            <li>Job recommendations and market insights</li>
+                            <li>Career guidance and industry trends</li>
+                        </ul>
+                        How can I assist you today?
+                    </div>
+                </div>
+                <div class="message-time">Just now</div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="typing-indicator" style="display: none;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+    {% block additional_js %}{% endblock %}
+</body>
+</html> 

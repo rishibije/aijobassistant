@@ -1,0 +1,4 @@
+job_with_skills.csv
+preprocessed_dataset.csv
+models/salary_forecasting_general.pkl
+job_descriptions.csv

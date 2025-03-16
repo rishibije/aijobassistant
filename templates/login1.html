@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Job Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login1.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI Job Assistant</div>
+            <div class="auth-buttons">
+                <button onclick="openModal('login')">Login</button>
+                <button onclick="openModal('register')">Register</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>AI-Powered Job Recommendation System</h1>
+            <p>Find your dream job with the power of artificial intelligence</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h2>Resume Parsing</h2>
+                <p>Upload your resume and let our AI analyze your skills and experience</p>
+            </div>
+            <div class="feature-card">
+                <h2>Job Recommendation</h2>
+                <p>Get personalized job recommendations based on your profile</p>
+            </div>
+            <div class="feature-card">
+                <h2>Market Analysis</h2>
+                <p>Stay updated with current job market trends and demands</p>
+            </div>
+            <div class="feature-card">
+                <h2>AI Chatbot</h2>
+                <p>Get instant answers to your career-related questions</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('login')">&times;</span>
+            <h2>Login</h2>
+            {% if msg %}
+            <div class="alert">{{ msg }}</div>
+            {% endif %}
+            <form id="loginForm" action="{{ url_for('login') }}" method="post">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('register')">&times;</span>
+            <h2>Register</h2>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if msg %}
+                <div class="alert">{{ msg }}</div>
+            {% endif %}
+            <form id="registerForm" action="{{ url_for('register') }}" method="post">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='login1.js') }}"></script>
+</body>
+</html> 

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - AI Job Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='market.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns"></script>
+    <!-- Add Font Awesome for spinner -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI Job Assistant</div>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Upload Resume</a>
+                <a href="{{ url_for('job_recommendations') }}">Job Recommendations</a>
+                <a href="{{ url_for('market') }}" class="active">Market Analysis</a>
+                <a href="{{ url_for('chatbot') }}">AI Chatbot</a>
+            </div>
+            <div class="auth-buttons">
+                <span>Welcome, {{ session.name }}!</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="market-container">
+            <div class="search-section">
+                <h1 class="title">Job Market Analysis</h1>
+                <form id="jobAnalysisForm" class="analysis-form">
+                    <div class="form-group">
+                        <input type="text" id="jobTitle" name="jobTitle" placeholder="Enter Job Title for Analysis" required>
+                        <button type="button" class="analyze-btn" onclick="analyzeAllMetrics()">
+                            <span class="button-text">Analyze Job Market</span>
+                            <i class="fas fa-spinner fa-spin" style="display: none;"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="chart-grid">
+                <div class="chart-card">
+                    <h2>Salary Trends</h2>
+                    <div class="chart-container">
+                        <div class="loading-overlay">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Loading data...</span>
+                        </div>
+                        <canvas id="salaryChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Job Competition Analysis</h2>
+                    <div class="chart-container">
+                        <div class="loading-overlay">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Loading data...</span>
+                        </div>
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Top Hiring Companies</h2>
+                    <div class="chart-container">
+                        <div class="loading-overlay">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Loading data...</span>
+                        </div>
+                        <canvas id="industryChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h2>Top Job Locations</h2>
+                    <div class="chart-container">
+                        <div class="loading-overlay">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Loading data...</span>
+                        </div>
+                        <canvas id="locationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='market.js') }}"></script>
+
+    <!-- Floating Chat Icon -->
+    <div class="chat-icon" id="chatIcon">
+        <i class="fas fa-comments"></i>
+        <span class="notification-badge" style="display: none;">1</span>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chatbot-container" id="chatContainer">
+        <div class="chat-header">
+            <h1><i class="fas fa-robot"></i> AI Career Assistant</h1>
+            <button class="minimize-btn" id="minimizeChat">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    <i class="fas fa-robot bot-icon"></i>
+                    <div class="message-text">
+                        Hello! I'm your AI career assistant. I can help you with:
+                        <ul>
+                            <li>Resume analysis and skill assessment</li>
+                            <li>Job recommendations and market insights</li>
+                            <li>Career guidance and industry trends</li>
+                        </ul>
+                        How can I assist you today?
+                    </div>
+                </div>
+                <div class="message-time">Just now</div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="typing-indicator" style="display: none;">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+</html> 

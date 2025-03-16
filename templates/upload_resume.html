@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resume - AI Job Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AI Job Assistant</div>
+            <div class="auth-buttons">
+                <span>Welcome, {{ name }}!</span>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="card">
+                <h1 class="title">Welcome to AI Job Assistant!</h1>
+                <p class="subtitle">Please upload your resume to get started</p>
+                
+                {% if error %}
+                <div class="alert alert-error">{{ error }}</div>
+                {% endif %}
+
+                <form action="{{ url_for('analyze_resume') }}" method="post" enctype="multipart/form-data" class="upload-form">
+                    <div class="upload-area" id="uploadArea">
+                        <img src="{{ url_for('static', filename='upload-icon.svg') }}" alt="Upload" class="upload-icon">
+                        <p>Drag and drop your resume here</p>
+                        <span class="file-limit">Supported format: PDF</span>
+                        <input type="file" name="resume" id="resumeFile" accept=".pdf" required>
+                        <label for="resumeFile" class="browse-button">Browse Files</label>
+                    </div>
+                    <button type="submit" class="submit-button">Upload and Continue</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 
